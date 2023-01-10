@@ -1,7 +1,7 @@
 *** UPDATE - SOLVED
 
 To deploy to Wallaby via hardhat the only caveat now is that you provide a value for maxPriorityFeePerGas in the deploy() method.
-There is no need for an f4wallet or any other special treatment of the network. My hardhat.config is simply as below (I'm using Typescript)
+There is no need for an f4address or any other special treatment of the network. My hardhat.config is simply as below (I'm using Typescript)
 ```
 import { HardhatUserConfig } from 'hardhat/config';
 import '@nomicfoundation/hardhat-toolbox';
