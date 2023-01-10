@@ -1,0 +1,21 @@
+{
+  "name": "bugs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@glif/filecoin-address": "^2.0.20",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "hardhat": "^2.12.5"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "harhdat": "^1.0.1"
+  }
+}
