@@ -1,3 +1,83 @@
+*** UPDATE - SOLVED
+
+To deploy to Wallaby via hardhat the only caveat now is that you provide a value for maxPriorityFeePerGas in the deploy() method.
+There is no need for an f4wallet or any other special treatment of the network. My hardhat.config is simply as below (I'm using Typescript)
+```
+import { HardhatUserConfig } from 'hardhat/config';
+import '@nomicfoundation/hardhat-toolbox';
+import './tasks';
+require('dotenv').config();
+
+const config: HardhatUserConfig = {
+  solidity: '0.8.17',
+  defaultNetwork: 'wallaby',
+  networks: {
+    wallaby: {
+      url: 'https://wallaby.node.glif.io/rpc/v0',
+      chainId: 31415,
+      accounts: [process.env.WALLET_PRIVATE_KEY ?? 'undefined'],
+    },
+  },
+};
+
+export default config;
+```
+
+The working task for deploying my Greeter.sol contract to Wallaby looks like the below and is found in the tasks/deploy.ts script
+This is run with ```npx hardhat deploy:Greeter-Wallaby --greeting "Bonjour, le Monde"```
+
+```
+task('deploy:Greeter-Wallaby')
+  .addParam('greeting', 'Bonjour, le Monde!')
+  .setAction(async (taskArguments: TaskArguments, hre) => {
+    const greeterFactory: Greeter__factory = <Greeter__factory>(
+      await hre.ethers.getContractFactory('Greeter')
+    );
+
+    const priorityFee = await hre.run('callRPC', {
+      method: 'eth_maxPriorityFeePerGas',
+      params: [],
+    });
+
+    const greeter: Greeter = <Greeter>await greeterFactory.deploy(
+      taskArguments.greeting,
+      {
+        maxPriorityFeePerGas: priorityFee,
+      }
+    );
+    await greeter.deployed();
+    console.log('greeter address', greeter.address);
+  });
+
+subtask('callRPC', 'callsWallabyRPC').setAction(
+  async (taskArguments: TaskArguments) => {
+    console.log('callRPC', taskArguments);
+    var options = {
+      method: 'POST',
+      url: 'https://wallaby.node.glif.io/rpc/v0',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        method: taskArguments.method,
+        params: taskArguments.params,
+        id: 1,
+      }),
+    };
+    const res = await request(options);
+    console.log('callRPC res', res.statusMessage);
+    return JSON.parse(res.body).result;
+  }
+
+```
+
+
+
+
+Leaving the below in the readme.
+
+** Why I originally made this (as a reproducible error pack)
 Note: I'm aware there is a "kit" for this - however, its very bloated code wise, and doesn't offer too much in the way of explanation of WHY certain code is part of the package - if you have insight on some of this - would love to know about it!
 
 UPDATE: It appears this problem links to a problem with interacting with the ethers.js library and the way FVM handles indexes. See related issues: 
@@ -52,6 +132,3 @@ This project has the following error deploying to Wallaby:
 
 ```
 
-
-This deploy script also seems overly verbose. The deploy:Greeter task is enough to deploy to Goerli (though not wallaby).
-I've also tried using hardhat-deploy to enhance deploy functionality with similar errors.
