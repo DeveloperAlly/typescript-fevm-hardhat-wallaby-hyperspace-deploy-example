@@ -1,3 +1,5 @@
+Note: I'm aware there is a "kit" for this - however, its very bloated code wise, and doesn't offer too much in the way of explanation of WHY certain code is part of the package - if you have insight on some of this - would love to know about it!
+
 I'm using tasks to deploy the Greeter.sol contract.
 
 After cloning & running an npm install ```npm install```
