@@ -1,6 +1,18 @@
-*** UPDATE - SOLVED
+*** (UPDATE - SOLVED)
 
-To deploy to Wallaby via hardhat the only caveat now is that you provide a value for maxPriorityFeePerGas in the deploy() method.
+To deploy to Filecoin Virtual Machine Wallaby Testnet via hardhat the only caveat now (that distinguished it from a deploy to evm chains) is that you provide a value for maxPriorityFeePerGas in the deploy() method - see tasks/deploy.ts for this.
+
+Deploying to Wallaby testnet:
+- Clone this and do an ```npm install``` (or create your own hardhat from scratch and config it and add contracts and tasks yourself)
+- Add your metamask wallet private key either in a .env file or by doing it locally (.env.example has the name)
+- Add Wallaby Testnet to Metamask (if you haven't already) Ref: https://docs.filecoin.io/developers/smart-contracts/how-tos/add-to-metamask/
+- Get some tFIL tokens from the faucet: https://wallaby.network/#faucet (just use your metamask address)
+- Deploy from hardhat (run ``npx hardhat deploy:Greeter-Wallaby --greeting "Your greeting"```)
+- Wait for the address and paste into glif explorer: https://explorer.glif.io/
+- Try it out on either hardhat or remix if you want to interact with it. (I pasted the contract in and then deployed to the address above in remix using injected provider to deploy)
+![image](https://user-images.githubusercontent.com/12529822/211539733-92c034d1-021e-464f-a670-2ba3b9aa2180.png)
+
+
 There is no need for an f4address or any other special treatment of the network. My hardhat.config is simply as below (I'm using Typescript)
 ```
 import { HardhatUserConfig } from 'hardhat/config';
@@ -77,7 +89,7 @@ subtask('callRPC', 'callsWallabyRPC').setAction(
 
 Leaving the below in the readme.
 
-** Why I originally made this (as a reproducible error pack)
+** Why I originally made this repo was as a reproducible error pack.
 Note: I'm aware there is a "kit" for this - however, its very bloated code wise, and doesn't offer too much in the way of explanation of WHY certain code is part of the package - if you have insight on some of this - would love to know about it!
 
 UPDATE: It appears this problem links to a problem with interacting with the ethers.js library and the way FVM handles indexes. See related issues: 
