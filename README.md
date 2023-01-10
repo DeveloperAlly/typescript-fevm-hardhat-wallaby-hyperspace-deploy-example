@@ -1,5 +1,12 @@
 Note: I'm aware there is a "kit" for this - however, its very bloated code wise, and doesn't offer too much in the way of explanation of WHY certain code is part of the package - if you have insight on some of this - would love to know about it!
 
+UPDATE: It appears this problem links to a problem with interacting with the ethers.js library and the way FVM handles indexes. See related issues: 
+https://github.com/filecoin-project/lotus/issues/9839#issuecomment-1345802873
+https://github.com/filecoin-project/lotus/issues/9839#issuecomment-1345802890
+
+Jim Pick has a crazy hack workaround if you're adventurous:  https://observablehq.com/@jimpick/fvm-actor-code-playground-erc20-sans-events?collection=@jimpick/filecoin-virtual-machine
+
+
 I'm using tasks to deploy the Greeter.sol contract.
 
 After cloning & running an npm install ```npm install```
