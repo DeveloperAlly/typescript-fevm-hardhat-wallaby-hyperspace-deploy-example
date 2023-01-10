@@ -42,7 +42,7 @@ const config: HardhatUserConfig = {
       url: 'https://wallaby.node.glif.io/rpc/v0',
       chainId: 31415,
       accounts: [process.env.WALLET_PRIVATE_KEY ?? 'undefined'],
-      httpHeaders: {},
+      // httpHeaders: {},
     },
   },
   paths: {

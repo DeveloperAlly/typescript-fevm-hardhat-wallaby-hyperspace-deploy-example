@@ -36,24 +36,24 @@ task('deploy:Greeter')
     console.log('Greeter deployed to: ', greeter.address);
   });
 
-task('deploy:Greeter-Wallaby')
+task('deploy:Greeter-Wallaby-broken')
   .addParam('greeting', 'Bonjour, le Monde!')
   .setAction(async (taskArguments: TaskArguments, hre) => {
-    const provider = new hre.ethers.providers.JsonRpcProvider(
-      'https://wallaby.node.glif.io/rpc/v0'
-    );
+    // const provider = new hre.ethers.providers.JsonRpcProvider(
+    //   'https://wallaby.node.glif.io/rpc/v0'
+    // );
 
     //Deploys fine to GOERLI endpoint
-    // const provider = new hre.ethers.providers.JsonRpcProvider(
-    //   process.env.GOERLI_RPC
-    // );
+    const provider = new hre.ethers.providers.JsonRpcProvider(
+      process.env.GOERLI_RPC
+    );
     const signer = new hre.ethers.Wallet(
       process.env.WALLET_PRIVATE_KEY ?? 'undefined',
       provider
     );
 
     //from fevm-hardhat-kit & Zondax: - WHAT DOES THIS DO?? SEEMS NOT NEEDED?
-    // const f4Address = fa.delegatedFromEthAddress(signer.address).toString();
+    const f4Address = fa.delegatedFromEthAddress(signer.address).toString();
 
     console.log('signer', signer);
     // console.log('deployer', deployer);
@@ -77,6 +77,29 @@ task('deploy:Greeter-Wallaby')
     );
     await greeter.deployed();
     console.log('greeter', greeter.address);
+  });
+
+task('deploy:Greeter-Wallaby')
+  .addParam('greeting', 'Bonjour, le Monde!')
+  .setAction(async (taskArguments: TaskArguments, hre) => {
+    const greeterFactory: Greeter__factory = <Greeter__factory>(
+      await hre.ethers.getContractFactory('Greeter')
+    );
+
+    console.log('factory', greeterFactory);
+    const priorityFee = await hre.run('callRPC', {
+      method: 'eth_maxPriorityFeePerGas',
+      params: [],
+    });
+
+    const greeter: Greeter = <Greeter>await greeterFactory.deploy(
+      taskArguments.greeting,
+      {
+        maxPriorityFeePerGas: priorityFee,
+      }
+    );
+    await greeter.deployed();
+    console.log('greeter address', greeter.address);
   });
 
 subtask('callRPC', 'callsWallabyRPC').setAction(
