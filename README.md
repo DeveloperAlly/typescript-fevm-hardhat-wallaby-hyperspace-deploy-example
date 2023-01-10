@@ -35,7 +35,7 @@ const config: HardhatUserConfig = {
 export default config;
 ```
 
-The working task for deploying my Greeter.sol contract to Wallaby looks like the below and is found in the tasks/deploy.ts script
+The working task for deploying my Greeter.sol contract to Wallaby looks like the below and is found in the tasks/deploy.ts script. I used tasks because I wanted to try their versatility out no special reason outside this - there's no reason this couldn't operate in a scripts/deploy script instead.
 This is run with ```npx hardhat deploy:Greeter-Wallaby --greeting "Bonjour, le Monde"```
 
 ```
