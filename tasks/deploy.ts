@@ -1,4 +1,4 @@
-import { subtask, task } from 'hardhat/config';
+import { subtask, task, types } from 'hardhat/config';
 import type { TaskArguments } from 'hardhat/types';
 import fs from 'fs';
 import path from 'path';
@@ -10,7 +10,12 @@ import type { Greeter } from '../typechain-types/Greeter';
 import type { Greeter__factory } from '../typechain-types/factories/Greeter__factory';
 
 task('deploy:Greeter-Wallaby')
-  .addParam('greeting', 'Bonjour, le Monde!')
+  .addOptionalParam(
+    'greeting',
+    'the greeting to print from contract',
+    'Bonjour, le Monde!',
+    types.string
+  )
   .setAction(async (taskArguments: TaskArguments, hre) => {
     const greeterFactory: Greeter__factory = <Greeter__factory>(
       await hre.ethers.getContractFactory('Greeter')
@@ -42,14 +47,16 @@ task('deploy:Greeter-Wallaby')
   });
 
 // TODO: typesafety and error checks - im not checking I have method or params
-subtask('callRPC', 'callsWallabyRPC').setAction(
-  async (taskArguments: TaskArguments) => {
+subtask('callRPC', 'callsWallabyRPC')
+  .addParam('method', 'http method', 'POST', types.string)
+  .addOptionalVariadicPositionalParam('params', 'http body params', [])
+  .setAction(async (taskArguments: TaskArguments) => {
     console.log('callRPC', taskArguments);
     var options = {
       method: 'POST',
-      url: 'https://wallaby.node.glif.io/rpc/v0',
+      url: 'https://wallaby.node.glif.io/rpc/v0', //addParam('rpc')
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json', //addParam('content-type)
       },
       body: JSON.stringify({
         jsonrpc: '2.0',
@@ -61,21 +68,20 @@ subtask('callRPC', 'callsWallabyRPC').setAction(
     const res = await request(options);
     console.log('callRPC res', res.statusMessage);
     return JSON.parse(res.body).result;
-  }
-);
+  });
 
 // TODO: type safety and error checks
 // won't worry about optimising with createWriteStream here since it's only a small about of data
-const fileUrl = './log.txt';
-subtask('logToFile', 'writes outputs to a file').setAction(
-  async (taskArguments: TaskArguments) => {
+subtask('logToFile', 'writes outputs to a file')
+  .addParam('filePath', 'relative file path', './log.txt', types.string)
+  .addParam('data', '{json obj data}', {}, types.json)
+  .setAction(async (taskArguments: TaskArguments) => {
     console.log('writing to file', taskArguments.data);
     //sync stops anything else that is executing while this runs
     //won't create the file if it does not exist though
     await appendFileSync(
-      path.resolve(__dirname, fileUrl),
+      path.resolve(__dirname, taskArguments.filePath),
       `${JSON.stringify(taskArguments.data)}\n`,
       'utf-8'
     );
-  }
-);
+  });
