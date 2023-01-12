@@ -10,6 +10,8 @@ Deploying to Wallaby testnet:
 - Deploy from hardhat - run the deploy task ```npx hardhat deploy:Greeter-Wallaby --greeting "Your greeting"```) OR - run the deploy script ```npx hardhat run --network wallaby scripts/deployGreeter.ts```
 - Wait for the address and paste into glif explorer: https://explorer.glif.io/{ADDRESS}/?network=wallaby
 - Try it out on either hardhat or remix if you want to interact with it. (I pasted the contract in and then deployed to the address above in remix using injected provider to deploy and chck functionality - but you could also test in hardhat env)
+
+
 ![image](https://user-images.githubusercontent.com/12529822/211539733-92c034d1-021e-464f-a670-2ba3b9aa2180.png)
 
 I've added a task that outputs the deployment address and some handy details to a log.txt file inside whichever directory you deploy from too - comment this call out if you don't want it in the deploy script you're using
