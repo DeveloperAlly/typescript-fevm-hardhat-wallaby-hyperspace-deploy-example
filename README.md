@@ -97,6 +97,16 @@ Find me in filecoinproject.slack @AlisonWonderland (Ally)
 
 
 
+NB: When deploying I occassionally get the below error - ususally if I just re-run the deploy it's fine though. If anyone can shed any light - would be happy to hear it!
+```
+for (let i = 0; i < block.transactions.length; i++) {
+                                                       ^
+TypeError: Cannot read properties of null (reading 'length')
+    at EthersProviderWrapper.<anonymous> (/Users/developerally/Desktop/Code/bugs/fevm-hardhat/node_modules/@ethersproject/providers/src.ts/base-provider.ts:1814:56)
+```
+
+
+
 
 
 
