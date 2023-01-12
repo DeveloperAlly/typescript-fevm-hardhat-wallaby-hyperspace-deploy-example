@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import util from 'util';
 const request = util.promisify(require('request'));
-const appendFileSync = util.promisify(fs.appendFileSync);
+const appendFile = util.promisify(fs.appendFile);
 
 import type { Greeter } from '../typechain-types/Greeter';
 import type { Greeter__factory } from '../typechain-types/factories/Greeter__factory';
@@ -41,7 +41,7 @@ task('deploy:Greeter-Wallaby')
         owner: greeter.deployTransaction.from,
         address: greeter.address,
         tx: greeter.deployTransaction.hash,
-        explorerUrl: `https://explorer.glif.io/address/${greeter.address}`,
+        explorerUrl: `https://explorer.glif.io/address/${greeter.address}/?network=wallabynet`,
       },
     });
   });
@@ -77,9 +77,9 @@ subtask('logToFile', 'writes outputs to a file')
   .addParam('data', '{json obj data}', {}, types.json)
   .setAction(async (taskArguments: TaskArguments) => {
     console.log('writing to file', taskArguments.data);
-    //sync stops anything else that is executing while this runs
-    //won't create the file if it does not exist though
-    await appendFileSync(
+    //addFileSync stops anything else that is executing while this runs
+    //won't create the file if it does not exist though so using addFile
+    await appendFile(
       path.resolve(__dirname, taskArguments.filePath),
       `${JSON.stringify(taskArguments.data)}\n`,
       'utf-8'
