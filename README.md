@@ -2,6 +2,8 @@
 
 To deploy to Filecoin Virtual Machine Wallaby Testnet via hardhat the only caveat now (that distinguished it from a deploy to evm chains) is that you provide a value for maxPriorityFeePerGas in the deploy() method - see tasks/deploy.ts for this.
 
+You do not need to sync your eth address to a filecoin address or any other sort of config.
+
 Deploying to Wallaby testnet:
 - Clone this and do an ```npm install``` (or create your own hardhat from scratch and config it and add contracts and tasks yourself)
 - Add your metamask wallet private key either in a .env file or by doing it locally (.env.example has the name)
