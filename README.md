@@ -7,8 +7,8 @@ You do not need to sync your eth address to a filecoin address or any other sort
 **Deploying to Wallaby testnet**:
 - Clone this and do an ```npm install``` (or create your own hardhat from scratch and config it and add contracts and tasks yourself)
 - Add your metamask wallet private key either in a .env file or by doing it locally (.env.example has the name)
-- Add Wallaby Testnet to Metamask (if you haven't already) Ref: https://docs.filecoin.io/developers/smart-contracts/how-tos/add-to-metamask/
-- Get some tFIL tokens from the faucet: https://wallaby.network/#faucet (just use your metamask address)
+- [Add Wallaby Testnet to Metamask](https://docs.filecoin.io/developers/smart-contracts/how-tos/add-to-metamask/) (if you haven't already)
+- Get some tFIL tokens from the [faucet](https://wallaby.network/#faucet) (just use your metamask address) - big thanks to Patrick of Factor8 for this & the testnet running
 - Deploy from hardhat - run the deploy task ```npx hardhat deploy:Greeter-Wallaby --greeting "Your greeting"```) OR - run the deploy script ```npx hardhat run --network wallaby scripts/deployGreeter.ts```
 - Wait for the address and paste into [starboard](https://fvm.starboard.ventures/contracts/0xd516Ddf008118BC7E09A7aB280177Dc005D180C7) or [glif](https://explorer.glif.io/{ADDRESS}/?network=wallaby) explorer: (hint: you can try this deployed contract out 0xd516Ddf008118BC7E09A7aB280177Dc005D180C7!)
 - Try it out on either hardhat or remix if you want to interact with it. (I pasted the contract in and then deployed to the address above in remix using injected provider to deploy and chck functionality - but you could also test in hardhat env)
