@@ -18,7 +18,7 @@ I've added a task that outputs the deployment address and some handy details to 
 
 Todos:
 - This is not type checking
-- Write address to a file for use in frontends
+[done] Write address to a file for use in frontends
 
 
 There is no need for an f4address or any other special treatment of the network. My hardhat.config is simply as below (I'm using Typescript)
