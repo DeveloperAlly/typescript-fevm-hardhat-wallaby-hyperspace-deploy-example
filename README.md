@@ -165,9 +165,4 @@ This project has the following error deploying to Wallaby:
   },
   transactionHash: '0xffcd7a99af979f8fb1fca6cabf3011fb11235dd86f3fe64628649c034c9e428e'
 }
-
-```
-
-
-C --> D
 ```
