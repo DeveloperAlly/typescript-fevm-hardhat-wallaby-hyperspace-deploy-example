@@ -101,7 +101,7 @@ Find me in filecoinproject.slack @AlisonWonderland (Ally)
 
 
 ## Issues
-NB: When deploying I occassionally get the below error - ususally if I just re-run the deploy it's fine though. If anyone can shed any light - would be happy to hear it!
+NB: When deploying I occassionally get the below error - ususally if I just re-run the deploy it's fine though. If anyone can shed any light - would be happy to hear it! (me tired ;p)
 ```
 for (let i = 0; i < block.transactions.length; i++) {
                                                        ^
