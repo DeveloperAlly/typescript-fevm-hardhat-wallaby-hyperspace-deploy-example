@@ -7,7 +7,7 @@ const request = util.promisify(require('request'));
 const appendFile = util.promisify(fs.appendFile);
 const defaultRPC = 'https://wallaby.node.glif.io/rpc/v0';
 
-// TODO: update params, errorchecking
+// TODO: update params, fix options method, errorchecking
 task('callRPC', 'callsWallabyRPC')
   .addParam('method', 'http method', 'POST', types.string)
   .addOptionalParam(
@@ -20,7 +20,7 @@ task('callRPC', 'callsWallabyRPC')
   .setAction(async ({ rpcUrl, method, params }: TaskArguments) => {
     console.log('callRPC', { rpcUrl, method, params });
     var options = {
-      method: method,
+      method: 'POST',
       url: rpcUrl,
       headers: {
         'Content-Type': 'application/json', //addParam('content-type)
