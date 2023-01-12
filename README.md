@@ -9,9 +9,9 @@ Deploying to Wallaby testnet:
 - Add your metamask wallet private key either in a .env file or by doing it locally (.env.example has the name)
 - Add Wallaby Testnet to Metamask (if you haven't already) Ref: https://docs.filecoin.io/developers/smart-contracts/how-tos/add-to-metamask/
 - Get some tFIL tokens from the faucet: https://wallaby.network/#faucet (just use your metamask address)
-- Deploy from hardhat (run ```npx hardhat deploy:Greeter-Wallaby --greeting "Your greeting"```)
-- Wait for the address and paste into glif explorer: https://explorer.glif.io/
-- Try it out on either hardhat or remix if you want to interact with it. (I pasted the contract in and then deployed to the address above in remix using injected provider to deploy)
+- Deploy from hardhat - run the deploy task ```npx hardhat deploy:Greeter-Wallaby --greeting "Your greeting"```) OR - run the deploy script ```npx hardhat run --network wallaby scripts/deployGreeter.ts```
+- Wait for the address and paste into glif explorer: https://explorer.glif.io/{ADDRESS}/?network=wallaby
+- Try it out on either hardhat or remix if you want to interact with it. (I pasted the contract in and then deployed to the address above in remix using injected provider to deploy and chck functionality - but you could also test in hardhat env)
 ![image](https://user-images.githubusercontent.com/12529822/211539733-92c034d1-021e-464f-a670-2ba3b9aa2180.png)
 
 Todos:
