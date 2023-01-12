@@ -43,7 +43,7 @@ const config: HardhatUserConfig = {
 export default config;
 ```
 
-The working task for deploying my Greeter.sol contract to Wallaby looks like the below and is found in the tasks/deploy.ts script. I used tasks because I wanted to try their versatility out no special reason outside this - there's no reason this couldn't operate in a scripts/deploy script instead.
+The working task for deploying my Greeter.sol contract to Wallaby looks like the below and is found in the tasks/deploy.ts script. I used tasks because I wanted to try their versatility out no special reason outside this. There's also a scripts/deployGreeter.ts script if thats more your jam.
 This is run with ```npx hardhat deploy:Greeter-Wallaby --greeting "Bonjour, le Monde"``` I could probably extend this to add a network param in future too
 
 ```
@@ -95,9 +95,9 @@ subtask('callRPC', 'callsWallabyRPC').setAction(
 
 
 
-Leaving the below in the readme.
+Leaving the below in the readme in case others encounter the same thing.
 
-** Why I originally made this repo was as a reproducible error pack.
+** Why I originally made this repo was as a reproducible error pack (it's since morphed into an example though :) ).
 Note: I'm aware there is a "kit" for this - however, its very bloated code wise, and doesn't offer too much in the way of explanation of WHY certain code is part of the package - if you have insight on some of this - would love to know about it!
 
 UPDATE: It appears this problem links to a problem with interacting with the ethers.js library and the way FVM handles indexes. See related issues: 
