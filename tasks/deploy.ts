@@ -3,6 +3,10 @@ import type { TaskArguments } from 'hardhat/types';
 
 import type { Greeter } from '../typechain-types/Greeter';
 import type { Greeter__factory } from '../typechain-types/factories/Greeter__factory';
+import { SimpleCoin__factory } from '../typechain-types/factories/SimpleCoin__factory';
+import { SimpleCoin } from '../typechain-types/SimpleCoin';
+
+import path from 'path';
 
 const explorerUrl = 'https://fvm.starboard.ventures/contracts/'; // alt: https://explorer.glif.io/address/{address}/wallaby
 
@@ -14,12 +18,13 @@ task('deploy:Greeter-Wallaby')
     types.string
   )
   .addOptionalParam(
-    'explorerBaseLink',
-    'url for the block explorer to write details to file',
-    explorerUrl,
+    'explorerBaseLink', //param name
+    'url for the block explorer to write details to file', //description
+    explorerUrl, //default if not supplied
     types.string
   )
   .setAction(async (taskArguments: TaskArguments, hre) => {
+    console.log('Greetings fil-der! Im deploying Greeter');
     const greeterFactory: Greeter__factory = <Greeter__factory>(
       await hre.ethers.getContractFactory('Greeter')
     );
@@ -36,15 +41,51 @@ task('deploy:Greeter-Wallaby')
       }
     );
     await greeter.deployed();
-    console.log('greeter address', greeter.address);
+    console.log('Success! Greeter deployer to address:', greeter.address);
+
     await hre.run('logToFile', {
-      data: {
-        network: 'wallaby',
-        chainId: greeter.deployTransaction.chainId,
-        owner: greeter.deployTransaction.from,
-        address: greeter.address,
-        tx: greeter.deployTransaction.hash,
-        explorerUrl: `${taskArguments.explorerBaseLink}${greeter.address}`,
-      },
+      filePath: path.resolve(__dirname, 'log.txt'),
+      data: greeter,
+    });
+  });
+
+task('deploy:SimpleCoin-Wallaby')
+  .addOptionalParam(
+    'tokenToBeMinted',
+    'the number of tokens to mint',
+    314,
+    types.int
+  )
+  .addOptionalParam(
+    'explorerBaseLink', //param name
+    'url for the block explorer to write details to file', //description
+    explorerUrl, //default if not supplied
+    types.string
+  )
+  .setAction(async (taskArguments: TaskArguments, hre) => {
+    console.log('Greetings fil-der! Im deploying SimpleCoin');
+
+    const simpleCoinFactory: SimpleCoin__factory = <SimpleCoin__factory>(
+      await hre.ethers.getContractFactory('SimpleCoin')
+    );
+
+    const priorityFee = await hre.run('callRPC', {
+      method: 'eth_maxPriorityFeePerGas',
+      params: [],
+    });
+
+    const simpleCoin: SimpleCoin = <SimpleCoin>await simpleCoinFactory.deploy(
+      taskArguments.tokenToBeMinted,
+      {
+        maxPriorityFeePerGas: priorityFee,
+      }
+    );
+    await simpleCoin.deployed();
+    console.log('Success! SimpleCoin deployed to address:', simpleCoin.address);
+
+    //Optional: Log to a file for reference
+    await hre.run('logToFile', {
+      filePath: path.resolve(__dirname, 'log.txt'),
+      data: simpleCoin,
     });
   });

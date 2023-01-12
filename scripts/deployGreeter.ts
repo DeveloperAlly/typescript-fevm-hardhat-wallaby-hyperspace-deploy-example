@@ -11,7 +11,7 @@ import type { Greeter } from '../typechain-types/Greeter';
 import type { Greeter__factory } from '../typechain-types/factories/Greeter__factory';
 
 async function main() {
-  console.log('greetings Im deploying');
+  console.log('Greetings fil-der! Im deploying Greeter');
   const greeterFactory: Greeter__factory = <Greeter__factory>(
     await hre.ethers.getContractFactory('Greeter')
   );
@@ -28,19 +28,12 @@ async function main() {
     }
   );
   await greeter.deployed();
-  console.log('greeter deployed to ', greeter.address);
+  console.log('Success! Greeter deployed to address:', greeter.address);
 
   //Optional: Log to a file for reference
   await hre.run('logToFile', {
     filePath: path.resolve(__dirname, 'log.txt'),
-    data: {
-      network: 'wallaby',
-      chainId: greeter.deployTransaction.chainId,
-      owner: greeter.deployTransaction.from,
-      address: greeter.address,
-      tx: greeter.deployTransaction.hash,
-      explorerUrl: `https://explorer.glif.io/address/${greeter.address}`,
-    },
+    data: greeter,
   });
 }
 
