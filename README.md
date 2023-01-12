@@ -1,5 +1,3 @@
-*** (UPDATE - SOLVED)
-
 To deploy to Filecoin Virtual Machine Wallaby Testnet via hardhat the only caveat now (that distinguished it from a deploy to evm chains) is that you provide a value for maxPriorityFeePerGas in the deploy() method - see tasks/deploy.ts for this.
 
 You do not need to sync your eth address to a filecoin address or any other sort of config.
