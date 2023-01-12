@@ -18,6 +18,9 @@ You do not need to sync your eth address to a filecoin address or any other sort
 
 I've added a task that outputs the deployment address and some handy details to a log.txt file inside whichever directory you deploy from too - comment this call out if you don't want it in the deploy script you're using
 
+**Updates**:
+- Added SimpleCoin deployment
+
 **Todos:**
 
 This code is far from perfect but hopefully its helpful -> PR's are always welcome!!!
