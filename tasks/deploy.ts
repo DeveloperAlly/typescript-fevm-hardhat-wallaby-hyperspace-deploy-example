@@ -4,11 +4,19 @@ import type { TaskArguments } from 'hardhat/types';
 import type { Greeter } from '../typechain-types/Greeter';
 import type { Greeter__factory } from '../typechain-types/factories/Greeter__factory';
 
+const explorerUrl = 'https://fvm.starboard.ventures/contracts/'; // alt: https://explorer.glif.io/address/{address}/wallaby
+
 task('deploy:Greeter-Wallaby')
   .addOptionalParam(
     'greeting',
     'the greeting to print from contract',
     'Bonjour, le Monde!',
+    types.string
+  )
+  .addOptionalParam(
+    'explorerBaseLink',
+    'url for the block explorer to write details to file',
+    explorerUrl,
     types.string
   )
   .setAction(async (taskArguments: TaskArguments, hre) => {
@@ -36,7 +44,7 @@ task('deploy:Greeter-Wallaby')
         owner: greeter.deployTransaction.from,
         address: greeter.address,
         tx: greeter.deployTransaction.hash,
-        explorerUrl: `https://explorer.glif.io/address/${greeter.address}/?network=wallabynet`,
+        explorerUrl: `${taskArguments.explorerBaseLink}${greeter.address}`,
       },
     });
   });
