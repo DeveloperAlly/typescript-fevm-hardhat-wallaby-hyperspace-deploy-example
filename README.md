@@ -1,8 +1,10 @@
-To deploy to Filecoin Virtual Machine Wallaby Testnet via hardhat the only caveat now (that distinguished it from a deploy to evm chains) is that you provide a value for maxPriorityFeePerGas in the deploy() method - see tasks/deploy.ts for this.
+## Deploying to Filecoin Virtual Machine (FVM) Wallaby Testnet from Hardhat
+
+To deploy to Filecoin Virtual Machine Wallaby Testnet via hardhat the only caveat now (that distinguishes it from a regular deploy to an evm chain) is that you provide a value for **maxPriorityFeePerGas** in the deploy() method - see tasks/deploy.ts for this.
 
 You do not need to sync your eth address to a filecoin address or any other sort of config.
 
-Deploying to Wallaby testnet:
+**Deploying to Wallaby testnet**:
 - Clone this and do an ```npm install``` (or create your own hardhat from scratch and config it and add contracts and tasks yourself)
 - Add your metamask wallet private key either in a .env file or by doing it locally (.env.example has the name)
 - Add Wallaby Testnet to Metamask (if you haven't already) Ref: https://docs.filecoin.io/developers/smart-contracts/how-tos/add-to-metamask/
@@ -16,11 +18,12 @@ Deploying to Wallaby testnet:
 
 I've added a task that outputs the deployment address and some handy details to a log.txt file inside whichever directory you deploy from too - comment this call out if you don't want it in the deploy script you're using
 
-Todos:
-- This is not type checking
-[done] Write address to a file for use in frontends
+**Todos:**
 
+ - [ ] This is not type checking or error checking everything
+ - [x] Write address to a file for use in frontends
 
+## Basics
 There is no need for an f4address or any other special treatment of the network. My hardhat.config is simply as below (I'm using Typescript)
 ```
 import { HardhatUserConfig } from 'hardhat/config';
@@ -43,8 +46,9 @@ const config: HardhatUserConfig = {
 export default config;
 ```
 
-The working task for deploying my Greeter.sol contract to Wallaby looks like the below and is found in the tasks/deploy.ts script. I used tasks because I wanted to try their versatility out no special reason outside this. There's also a scripts/deployGreeter.ts script if thats more your jam.
-This is run with ```npx hardhat deploy:Greeter-Wallaby --greeting "Bonjour, le Monde"``` I could probably extend this to add a network param in future too
+The working task for deploying my Greeter.sol contract to Wallaby looks like the below and is found in the **tasks/deploy.ts** script. I used tasks because I wanted to try their versatility out no special reason outside this. There's also a **scripts/deployGreeter.ts** script if thats more your jam. (To deploy use  ```npx hardhat run --network wallaby scripts/deployGreeter.ts```)
+
+The task is run with ```npx hardhat deploy:Greeter-Wallaby --greeting "Bonjour, le Monde"``` I could probably extend this to add a network param in future too
 
 ```
 task('deploy:Greeter-Wallaby')
@@ -92,11 +96,11 @@ subtask('callRPC', 'callsWallabyRPC').setAction(
 
 ```
 
-Questions? 
+## Questions?
 Find me in filecoinproject.slack @AlisonWonderland (Ally)
 
 
-
+## Issues
 NB: When deploying I occassionally get the below error - ususally if I just re-run the deploy it's fine though. If anyone can shed any light - would be happy to hear it!
 ```
 for (let i = 0; i < block.transactions.length; i++) {
@@ -106,10 +110,7 @@ TypeError: Cannot read properties of null (reading 'length')
 ```
 
 
-
-
-
-
+## Original Repository History
 Leaving the below in the readme in case others encounter the same thing.
 
 ** Why I originally made this repo was as a reproducible error pack (it's since morphed into an example though :) ).
@@ -167,3 +168,6 @@ This project has the following error deploying to Wallaby:
 
 ```
 
+
+C --> D
+```
