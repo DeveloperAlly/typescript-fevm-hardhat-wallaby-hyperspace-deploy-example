@@ -19,6 +19,7 @@ You do not need to sync your eth address to a filecoin address or any other sort
 I've added a task that outputs the deployment address and some handy details to a log.txt file inside whichever directory you deploy from too - comment this call out if you don't want it in the deploy script you're using
 
 **Todos:**
+This code is far from perfect -> PR's are always welcome!!!
 
  - [ ] This is not type checking or error checking everything
  - [x] Write address to a file for use in frontends
