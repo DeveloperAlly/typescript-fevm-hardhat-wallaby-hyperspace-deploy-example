@@ -1,6 +1,8 @@
 ## Deploying to Filecoin Virtual Machine (FVM) Wallaby Testnet from Hardhat
 
-** UPDATE - YOU NO LONGER NEED THIS CAVEAT EITHER. IT WORKS OUT OF THE BOX WITH A NORMAL HARDHAT DEPLOY (HOWEVER YOU USUALLY CONFIGURE FOR GOERLI ETC.)
+** UPDATE - YOU NO LONGER NEED THIS CAVEAT EITHER. IT WORKS OUT OF THE BOX WITH A NORMAL HARDHAT DEPLOY 
+(HOWEVER YOU USUALLY CONFIGURE FOR GOERLI ETC.)
+
 To deploy to Filecoin Virtual Machine Wallaby Testnet via hardhat the only caveat now (that distinguishes it from a regular deploy to an evm chain) is that you provide a value for **maxPriorityFeePerGas** in the deploy() method - see tasks/deploy.ts for this.
 
 You do not need to sync your eth address to a filecoin address or any other sort of config.
