@@ -1,10 +1,36 @@
-## Deploying to Filecoin Virtual Machine (FVM) Wallaby Testnet from Hardhat
+## Deploying to Filecoin Virtual Machine (FVM) Wallaby Testnet from Hardhat (also works for Hyperspace)
 
 To deploy to Filecoin Virtual Machine Wallaby Testnet via hardhat the only caveat now (that distinguishes it from a regular deploy to an evm chain) is that you provide a value for **maxPriorityFeePerGas** in the deploy() method - see tasks/deploy.ts for this.
 
 You do not need to sync your eth address to a filecoin address or any other sort of config.
 
-**Deploying to Wallaby testnet**:
+***** UPDATE changes to the gas override as per https://github.com/filecoin-project/lotus/issues/9983
+
+USE THE DEPLOY SCRIPT AND OVERRIDE THE DEFAULT WALLET
+````
+async function main() {
+  console.log('Hello Fil-der! Bacalhau721 deploying....');
+
+  const owner = new hre.ethers.Wallet(
+    process.env.WALLET_PRIVATE_KEY || 'undefined',
+    hre.ethers.provider
+  );
+
+  const bacalhauERC721Factory: BacalhauERC721__factory = <BacalhauERC721__factory> 
+          await hre.ethers.getContractFactory('BacalhauERC721', owner);
+
+  const bacalhauERC721: BacalhauERC721 = <BacalhauERC721>(
+    await bacalhauERC721Factory
+      .deploy
+      ()
+  );
+
+  await bacalhauERC721.deployed();
+  console.log('bacalhauERC721 deployed to ', bacalhauERC721.address);
+```
+
+
+**Deploying to Wallaby or Hyperspace testnet**:
 - Clone this and do an ```npm install``` (or create your own hardhat from scratch and config it and add contracts and tasks yourself)
 - Add your metamask wallet private key either in a .env file or by doing it locally (.env.example has the name)
 - [Add Wallaby Testnet to Metamask](https://docs.filecoin.io/developers/smart-contracts/how-tos/add-to-metamask/) (if you haven't already)
