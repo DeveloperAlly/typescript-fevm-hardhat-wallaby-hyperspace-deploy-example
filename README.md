@@ -6,7 +6,7 @@ You do not need to sync your eth address to a filecoin address or any other sort
 
 ***** UPDATE changes to the gas override as per https://github.com/filecoin-project/lotus/issues/9983
 
-USE THE DEPLOY SCRIPT AND OVERRIDE THE DEFAULT WALLET
+USE THE DEPLOY SCRIPT AND OVERRIDE THE DEFAULT WALLET (example from another project below of the deploy script.)
 ````
 async function main() {
   console.log('Hello Fil-der! Bacalhau721 deploying....');
@@ -16,7 +16,7 @@ async function main() {
     hre.ethers.provider
   );
 
-  const bacalhauERC721Factory: BacalhauERC721__factory = <BacalhauERC721__factory> 
+  const bacalhauERC721Factory: Greeter__factory = <BacalhauERC721__factory> 
           await hre.ethers.getContractFactory('BacalhauERC721', owner);
 
   const bacalhauERC721: BacalhauERC721 = <BacalhauERC721>(
