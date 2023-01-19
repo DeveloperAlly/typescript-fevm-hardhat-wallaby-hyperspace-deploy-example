@@ -8,6 +8,11 @@ You do not need to sync your eth address to a filecoin address or any other sort
 
 USE THE DEPLOY SCRIPT AND OVERRIDE THE DEFAULT WALLET (example from another project below of the deploy script.)
 ````
+import hre from 'hardhat';
+
+import type { BacalhauERC721 } from '../typechain-types/contracts/BacalhauERC721';
+import type { BacalhauERC721__factory } from '../typechain-types/factories/contracts/BacalhauERC721__factory';
+
 async function main() {
   console.log('Hello Fil-der! Bacalhau721 deploying....');
 
@@ -27,6 +32,12 @@ async function main() {
 
   await bacalhauERC721.deployed();
   console.log('bacalhauERC721 deployed to ', bacalhauERC721.address);
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
 ````
 
 
