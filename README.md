@@ -27,7 +27,7 @@ async function main() {
 
   await bacalhauERC721.deployed();
   console.log('bacalhauERC721 deployed to ', bacalhauERC721.address);
-```
+````
 
 
 **Deploying to Wallaby or Hyperspace testnet**:
