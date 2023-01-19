@@ -1,8 +1,8 @@
 ## Deploying to Filecoin Virtual Machine (FVM) Wallaby Testnet from Hardhat (also works for Hyperspace)
 
-To deploy to Filecoin Virtual Machine Wallaby Testnet via hardhat the only caveat now (that distinguishes it from a regular deploy to an evm chain) is that you provide a value for **maxPriorityFeePerGas** in the deploy() method - see tasks/deploy.ts for this.
+~~To deploy to Filecoin Virtual Machine Wallaby Testnet via hardhat the only caveat now (that distinguishes it from a regular deploy to an evm chain) is that you provide a value for **maxPriorityFeePerGas** in the deploy() method - see tasks/deploy.ts for this.~~
 
-You do not need to sync your eth address to a filecoin address or any other sort of config.
+~~You do not need to sync your eth address to a filecoin address or any other sort of config.~~
 
 ***** UPDATE changes to the gas override as per https://github.com/filecoin-project/lotus/issues/9983
 
