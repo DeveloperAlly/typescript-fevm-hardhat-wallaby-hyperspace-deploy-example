@@ -26,7 +26,7 @@ async function main() {
 
   const bacalhauERC721: BacalhauERC721 = <BacalhauERC721>(
     await bacalhauERC721Factory
-      .deploy
+      .deploy {timeout: 180000}
       ()
   );
 
@@ -39,6 +39,15 @@ main().catch((error) => {
   process.exitCode = 1;
 });
 ````
+
+For proxy deployments - override the default time to ensure it has enough time to complete
+```
+// example of open zeppelin upgradeable proxy
+const deployment = await upgrades.deployProxy(contract, preparedArguments, {
+    timeout: 180000
+});
+```
+
 
 
 **Deploying to Wallaby or Hyperspace testnet**:
